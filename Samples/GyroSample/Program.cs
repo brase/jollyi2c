@@ -20,8 +20,13 @@ namespace GyroSample
 
         public static void Main()
         {
+            //Workaround to enable I2C on Netduino Plus 2
+            OutputPort p = new OutputPort(Pins.GPIO_PIN_SDA, true);
+            p.Write(false);
+            p.Dispose();
+
             _i2cBus = new I2CBus();
-            _mpu = new MPU6050(_i2cBus, MPU6050.AddressLow, 400);
+            _mpu = new MPU6050(_i2cBus, MPU6050.AddressLow, 100);
 
             Debug.Print("Testing device connections...");
 
